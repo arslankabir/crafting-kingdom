@@ -1,0 +1,41 @@
+{
+  "name": "crafting-kingdoms",
+  "description": "A Web3 medieval game to build towns, manage realms, and conquer dungeons.",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next export",
+    "deploy": "next build && next export && npx thirdweb@latest upload out",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "@thirdweb-dev/auth": "^4.1.72",
+    "@thirdweb-dev/engine": "^0.0.17",
+    "@thirdweb-dev/react": "^4",
+    "@thirdweb-dev/sdk": "^4.0.99",
+    "axios": "^1.6.2",
+    "ethers": "^5.7.2",
+    "next": "^14",
+    "react": "^18.2",
+    "react-dom": "^18.2",
+    "react-icons": "^4.12.0",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/winston": "^2.4.4",
+    "eslint": "^8",
+    "eslint-config-next": "^14",
+    "husky": "^8",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
