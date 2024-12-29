@@ -3,6 +3,9 @@ import {
   embeddedWallet,
   smartWallet,
   ThirdwebProvider,
+  metamaskWallet,
+  coinbaseWallet,
+  walletConnect,
 } from "@thirdweb-dev/react";
 import Head from "next/head";
 import "../styles/globals.css";
@@ -17,10 +20,15 @@ function MyApp({ Component, pageProps }: AppProps) {
       clientId={process.env.NEXT_PUBLIC_TEMPLATE_CLIENT_ID}
       activeChain={Sepolia}
       supportedWallets={[
+        // Smart Wallet with Embedded Wallet
         smartWallet(embeddedWallet(), {
           factoryAddress: getEnvironment().FACTORY_ADDRESS,
           gasless: true,
         }),
+        // Traditional Wallet Options
+        metamaskWallet(),
+        coinbaseWallet(),
+        walletConnect(),
       ]}
       authConfig={{
         domain: getEnvironment().DOMAIN,

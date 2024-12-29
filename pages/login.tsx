@@ -72,6 +72,12 @@ const Login = () => {
   };
 
   useEffect(() => {
+    if (address && !isLoading) {
+      router.push("/");
+    }
+  }, [address, isLoading, router]);
+
+  useEffect(() => {
     if (isLoggedIn && !isLoading) {
       checkNewPlayer();
     }

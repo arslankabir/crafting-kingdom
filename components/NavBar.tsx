@@ -28,7 +28,7 @@ const NavBar = () => {
     "getStakeInfo",
     [address]
   );
-  const { isLoggedIn, isLoading } = useUser();
+  const { isLoggedIn, isLoading, user } = useUser();
   const router = useRouter();
   const [showBuildingsMenu, setShowBuildingsMenu] = useState(false);
   const [hasTavern, setHasTavern] = useState(false);
@@ -50,10 +50,23 @@ const NavBar = () => {
   }
 
   useEffect(() => {
-    if (!isLoggedIn && !isLoading) {
-      router.push("/login");
+    // Comprehensive login redirection
+    console.log('Login Status:', {
+      isLoggedIn, 
+      address, 
+      isLoading, 
+      currentPath: router.pathname
+    });
+
+    // Redirect to home if logged in or wallet connected
+    if ((isLoggedIn || address) && router.pathname !== '/') {
+      router.push('/');
+    } 
+    // Redirect to login if not authenticated
+    else if (!isLoggedIn && !address && !isLoading && router.pathname !== '/login') {
+      router.push('/login');
     }
-  }, [isLoggedIn, isLoading, router]);
+  }, [isLoggedIn, address, isLoading, router.pathname]);
 
   useEffect(() => {
     if (isLoggedIn && showConnectEmbed) {
@@ -65,7 +78,7 @@ const NavBar = () => {
 
   return (
     <div className={styles.full_with}>
-      {isLoggedIn && (
+      {(isLoggedIn || address) && (
         <div className={styles.navbarContainer}>
           <Link href="/">
             <div className={styles.navbar_header}>
@@ -139,7 +152,14 @@ const NavBar = () => {
                 </div>
               </p>
             )}
-            <ConnectWallet className="web3_component" />
+          </div>
+          <div className={styles.walletSection}>
+            <ConnectWallet 
+              theme="dark"
+              btnTitle="Connect Wallet"
+              modalTitle="Connect to Crafting Kingdoms"
+              switchToPersonalWallet={true}
+            />
           </div>
         </div>
       )}
